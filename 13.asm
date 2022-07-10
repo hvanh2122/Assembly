@@ -6,11 +6,17 @@
 .data
     tenfile db 15 dup(?),0
     handle dw ?
-    string db 15 dup(?),24h   ;du lieu de ghi vao file
+    string db 15 dup(?),24h   ;du lieu de ghi vao file 
+    tb db 10,13,"Noi dung file: $"
+    tb1 db "Nhap ten file: $"
 .code
     main proc
         mov ax, @data
         mov ds, ax
+        
+        mov ah, 9
+        lea dx, tb1
+        int 21h
         
         lea si, tenfile
         mov ah, 01h
@@ -37,6 +43,9 @@
         int 21h 
         
         mov ah, 09h
+        lea dx, tb
+        int 21h
+        
         lea dx, string
         int 21h 
         thoat:
