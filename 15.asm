@@ -4,13 +4,20 @@
 .stack
 .data
     tenfile1 db 15 dup(?),0    ;ten file goc
-    tenfile2 db 15 dup(?),0    ;ten file thay the
+    tenfile2 db 15 dup(?),0    ;ten file thay the 
+    tb1 db "Nhap ten file goc: $"
+    tb2 db 10,13,"Nhap ten file thay the: $" 
+    tb3 db 10,13,"Doi ten thanh cong!!$"
     handle dw ?
 .code
     main proc
         mov ax, @data
         mov ds, ax
         mov es, ax
+        
+        mov ah, 9
+        lea dx, tb1
+        int 21h
         
         lea si, tenfile1
         mov ah, 01h
@@ -23,12 +30,10 @@
         inc si
         jmp nhapgoc
         
-        
-        next:
-        mov ah, 02h   ;xuong dong
-        mov dl, 0Dh
-        int 21h
-        mov dl, 0Ah
+               
+        next:       
+        mov ah, 9
+        lea dx, tb2
         int 21h
         
         lea si, tenfile2
@@ -48,6 +53,10 @@
         int 21h
          
         thoat:
+        mov ah, 9
+        lea dx, tb3
+        int 21h
+        
         mov ah, 4Ch
         int 21h  
     main endp
