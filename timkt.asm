@@ -1,14 +1,13 @@
 .data
-    string db 100,?,100 dup<"$">
     tb db "Nhap chuoi: $" 
     tb3 db 10,13,"Nhap ky tu can tim: $"
-    tb1 db 10,13,"Ky tu can tim trong chuoi tai: $"
+    tb1 db 10,13,"Ky tu can tim trong chuoi tai vi tri: $"
     tb2 db 10,13,"Khong co ky tu can tim trong chuoi $"
     kytu db ?
     index db 0
     solan db 0
     sokytu db ?
-
+    string db 50,?,50 dup<"$">
 .code
 main proc 
 
@@ -50,14 +49,14 @@ main proc
         
         cmp solan, 1
         je thongbao 
-        
+
         call todec 
         jmp tiep
         
     thongbao:
         mov ah, 9
         lea dx, tb1
-        int 21h
+        int 21h 
         call todec
         
     tiep:
@@ -84,11 +83,12 @@ main proc
         mov ah, 4ch ; thoat ve Dos
         int 21h
 main endp
-    todec proc 
-        mov al, index
+    todec proc
+        mov al, index 
         mov bl, 10
         mov cx, 0
-        mov ah,0
+    chia: 
+        mov ah, 0   
         div bl
         mov dl,ah
         add dl,30h 
@@ -96,7 +96,7 @@ main endp
         inc cx 
         cmp al,0 
         je inso 
-        jmp todec
+        jmp chia
     inso:
         pop dx
         mov ah,2
