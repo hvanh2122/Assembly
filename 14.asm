@@ -4,10 +4,16 @@
 .data
     tenfile db 15 dup(?),0
     handle dw ?
+    tb db "Nhap ten file: $" 
+    tb1 db 10,13,"Xoa file thanh cong!!$"
 .code
     main proc
         mov ax, @data
         mov ds, ax
+        
+        mov ah, 9
+        lea dx, tb
+        int 21h
         
         lea si, tenfile
         mov ah, 01h
@@ -27,6 +33,10 @@
         
          
         thoat:
+        mov ah, 9
+        lea dx, tb1
+        int 21h
+        
         mov ah, 4Ch
         int 21h  
     main endp
