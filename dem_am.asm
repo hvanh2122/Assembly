@@ -54,23 +54,32 @@
         int 21h
     main endp 
     
-    todec proc
-        mov bl, 10
-        mov cx, 0
-        mov ah,0
+todec proc
+    mov bl, 10
+    mov cx, 0
+    
+    chia:
+        mov ah, 0
+        mov dx, 0
         div bl
-        mov dl,ah
-        add dl,30h 
-        push dx 
-        inc cx 
-        cmp al,0 
-        je inso 
-        jmp todec
-    inso:
+        
+        inc cx
+        mov dl, ah
+        add dl, 30h
+        push dx
+        
+        cmp al, 0
+        je hienthi
+        
+        jmp chia
+        
+    hienthi:
         pop dx
-        mov ah,2
+        mov ah, 2
         int 21h
-        loop inso 
+        loop hienthi
+        
         ret
+        
     todec endp
 end main
